@@ -1,12 +1,17 @@
 package org.pearemu.commons;
 
+import java.io.IOException;
+import org.pearemu.network.realm.RealmServer;
+
 public class PearEmu {
 
 	/**
 	 * @param args
+     * @throws java.io.IOException
 	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) throws IOException {
+            System.out.println("coucou, tu veux voir ma bite ?");
+            RealmServer server = new RealmServer();
 
 	}
 
