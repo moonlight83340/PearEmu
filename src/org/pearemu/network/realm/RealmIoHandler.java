@@ -3,18 +3,20 @@ package org.pearemu.network.realm;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
+import org.pearemu.commons.tools.StringTools;
 
 public class RealmIoHandler extends IoHandlerAdapter{
 
     @Override
     public void messageSent(IoSession session, Object message) throws Exception {
-        super.messageSent(session, message); //To change body of generated methods, choose Tools | Templates.
+        super.messageSent(session, message);
+        System.out.println("Send >> " + message);
     }
 
     @Override
     public void messageReceived(IoSession session, Object message) throws Exception {
         super.messageReceived(session, message);
-        System.out.println(message);
+        System.out.println("Recv << " + message);
     }
 
     @Override
@@ -29,18 +31,15 @@ public class RealmIoHandler extends IoHandlerAdapter{
 
     @Override
     public void sessionClosed(IoSession session) throws Exception {
-        super.sessionClosed(session); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void sessionOpened(IoSession session) throws Exception {
-        super.sessionOpened(session); //To change body of generated methods, choose Tools | Templates.
+        super.sessionClosed(session);
+        System.out.println("Logout");
     }
 
     @Override
     public void sessionCreated(IoSession session) throws Exception {
         super.sessionCreated(session);
-        session.write("HChusuhfsduhffsdfy");
+        System.out.println("New client");
+        RealmPacketEnum.HELLO_CONNECTION.send(session, StringTools.strRand(32));
     }
     
 }
