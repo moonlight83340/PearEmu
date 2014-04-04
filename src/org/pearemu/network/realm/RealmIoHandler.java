@@ -1,4 +1,4 @@
-package org.pearemu.realm;
+package org.pearemu.network.realm;
 
 import org.apache.mina.core.service.IoHandlerAdapter;
 
