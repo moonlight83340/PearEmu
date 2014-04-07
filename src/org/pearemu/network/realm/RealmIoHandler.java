@@ -3,6 +3,7 @@ package org.pearemu.network.realm;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
+import org.pearemu.commons.Constants;
 import org.pearemu.commons.tools.StringTools;
 
 public class RealmIoHandler extends IoHandlerAdapter{
@@ -16,7 +17,24 @@ public class RealmIoHandler extends IoHandlerAdapter{
     @Override
     public void messageReceived(IoSession session, Object message) throws Exception {
         super.messageReceived(session, message);
-        System.out.println("Recv << " + message);
+        String packet = ((String)message).trim();
+        
+        if(packet.length() == 0)
+            return;
+        
+        System.out.println("Recv << " + packet);
+        int  numPacket = session.containsAttribute(1) ? (int)session.getAttribute(1) : 1;
+        
+        switch(numPacket){
+            case 1 : 
+                if(!packet.equals(Constants.DOFUS_VER)){
+                    RealmPacketEnum.REQUIRE_VERSION.send(session);
+                    session.close(true);
+                }
+            break;  
+        }
+        session.setAttribute(1,numPacket+1);
+        
     }
 
     @Override
