@@ -8,7 +8,7 @@ package org.pearemu.commons;
 
 /**
  *
- * @author p13006381
+ * @author moonlight83340
  */
 public class Config {
     final static public String DB_HOST = "127.0.0.1";
