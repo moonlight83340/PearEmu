@@ -14,7 +14,7 @@ import org.apache.mina.core.session.IoSession;
 
 /**
  *
- * @author p13006381
+ * @author moonlight83340
  */
 public class MinaIoHandler extends IoHandlerAdapter{
     final private Map<String, Method> packets = new HashMap<>();
