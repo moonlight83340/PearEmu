@@ -9,7 +9,7 @@ package org.pearemu.commons.tools;
 
 /**
  *
- * @author Vincent Quatrevieux <quatrevieux.vincent@gmail.com>
+ * @author moonlight83340,vincent4vx
  */
 public class StringTools {
     
