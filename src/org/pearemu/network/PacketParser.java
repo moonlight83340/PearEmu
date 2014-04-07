@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author p13006381
  */
-public class PacketParser {
+abstract public class PacketParser {
     public Map<String, Method> getPackets(){
         Map<String, Method> packets = new HashMap<>();
         for(Method method : getClass().getDeclaredMethods()){
