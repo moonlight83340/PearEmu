@@ -7,7 +7,7 @@ import org.pearemu.commons.Constants;
 import org.pearemu.commons.tools.StringTools;
 import org.pearemu.network.Packet;
 
-public class RealmIoHandler extends IoHandlerAdapter{
+public class RealmIoHandler extends IoHandlerAdapter {
 
     @Override
     public void messageSent(IoSession session, Object message) throws Exception {
