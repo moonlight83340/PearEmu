@@ -40,7 +40,7 @@ public class MinaIoHandler extends IoHandlerAdapter{
             return;
        for(int i = 3; i >= 2; --i)
        {
-         
+         packet.substring(0, i);
        }
     }
             
