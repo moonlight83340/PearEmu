@@ -3,6 +3,11 @@ package org.pearemu.commons;
 import java.io.IOException;
 import org.pearemu.network.realm.RealmServer;
 
+/**
+ *
+ * @author moonlight83340,vincent4vx
+ */
+ 
 public class PearEmu {
 
 	/**
