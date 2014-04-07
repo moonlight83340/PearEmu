@@ -15,15 +15,16 @@ import java.util.Map;
  * @author p13006381
  */
 public class PacketParser {
-    public void getPackets(){
+    public Map<String, Method> getPackets(){
         Map<String, Method> packets = new HashMap<>();
         for(Method method : getClass().getDeclaredMethods()){
+            Packet annotation = method.getAnnotation(Packet.class);
             
+            if(annotation == null)
+               continue;
+            
+            packets.put(annotation.value(), method);
         }
-    }
-    @Packet("dfhf")
-    public void pars(){
-        
-    }
-    
+        return packets;
+    }    
 }
