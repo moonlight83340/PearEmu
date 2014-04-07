@@ -36,7 +36,12 @@ public class MinaIoHandler extends IoHandlerAdapter{
     }
     
     final protected void parsePacket(String packet){
-       
+       if(packet.length()<2 )
+            return;
+       for(int i = 3; i >= 2; --i)
+       {
+         
+       }
     }
             
 }
