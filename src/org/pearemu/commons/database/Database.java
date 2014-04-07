@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import jdk.nashorn.tools.Shell;
+import org.pearemu.commons.Config;
 
 public class Database {
 
@@ -18,17 +20,18 @@ public class Database {
 
     private Database() {
         try {
-            Shell.print("Connexion à la base de données : ", GraphicRenditionEnum.YELLOW);
+            System.out.println("Connexion à la base de données : ");
             StringBuilder dsn = new StringBuilder();
 
             dsn.append("jdbc:mysql://");
-            dsn.append(Config.DB_HOST.getValue());
-            dsn.append("/").append(Config.DB_NAME.getValue());
+            dsn.append(Config.DB_HOST);
+            dsn.append("/").append(Config.DB_NAME);
 
             db = DriverManager.getConnection(
                     dsn.toString(),
-                    Config.DB_USER.getValue(),
-                    Config.DB_PASS.getValue());
+                    Config.DB_USER,
+                    Config.DB_PASS
+            );
 
             scheduledCommit = Executors.newSingleThreadScheduledExecutor();
             scheduledCommit.scheduleAtFixedRate(
@@ -40,19 +43,21 @@ public class Database {
                                     synchronized(self.db){
                                         self.db.commit();
                                     }
-                                    Loggin.debug("Commit Database");
+                                    System.out.println("Commit Database");
                                 } catch (SQLException ex) {
-                                    Loggin.error("Commit impossible !", ex);
+                                    System.out.println("Commit impossible !");
+                                    ex.printStackTrace();
                                 }
                             }
                         }
                     },
-                    Config.DB_COMMIT_TIME.getValue(),
-                    Config.DB_COMMIT_TIME.getValue(), TimeUnit.SECONDS
+                    Config.DB_COMMIT_TIME,
+                    Config.DB_COMMIT_TIME, TimeUnit.SECONDS
             );
-            Shell.println("Ok", GraphicRenditionEnum.GREEN);
+            System.out.println("Ok");
         } catch (SQLException ex) {
-            Loggin.error("Connexion à la base de donnée impossible.", ex);
+            System.out.println("Connexion à la base de donnée impossible.");
+            ex.printStackTrace();
             System.exit(1);
         }
     }
@@ -62,13 +67,14 @@ public class Database {
         try {
             synchronized(self.db){
                 if (state) {
-                    Loggin.debug("Commit Database");
+                    System.out.println("Commit Database");
                     self.db.commit();
                 }
                 self.db.setAutoCommit(state);
             }
         } catch (SQLException ex) {
-            Loggin.error("Impossible de changer le mode autoCommit !", ex);
+            System.out.println("Impossible de changer le mode autoCommit !");
+            ex.printStackTrace();
             System.exit(1);
         }
     }
@@ -78,11 +84,12 @@ public class Database {
             ResultSet RS;
             synchronized (self) {
                 RS = self.db.createStatement().executeQuery(query);
-                Loggin.debug("Execution de la requête : %s", new Object[]{query});
+                System.out.println("Execution de la requête : " + query);
             }
             return RS;
         } catch (SQLException e) {
-            Loggin.error("exécution de la requête '" + query + "' impossible !" , e);
+            System.out.println("exécution de la requête '" + query + "' impossible !");
+            e.printStackTrace();
             return null;
         }
     }
@@ -90,7 +97,7 @@ public class Database {
     public static PreparedStatement prepare(String query) {
         try {
             PreparedStatement stmt = self.db.prepareStatement(query);
-            Loggin.debug("Préparation de la requête : %s", query);
+            System.out.println("Préparation de la requête : " + query);
             return stmt;
         } catch (SQLException e) {
             return null;
@@ -121,13 +128,14 @@ public class Database {
 
     public static void close() {
         try {
-            Shell.print("Arrêt de database : ", GraphicRenditionEnum.RED);
+            System.out.println("Arrêt de database : ");
             self.scheduledCommit.shutdown();
             self.scheduledCommit = null;
             self.db.close();
-            Shell.println("ok", GraphicRenditionEnum.GREEN);
+            System.out.println("ok");
         } catch (SQLException ex) {
-            Loggin.error("Unable to close database", ex);
+            System.out.println("Unable to close database");
+            ex.printStackTrace();
         }
     }
 }

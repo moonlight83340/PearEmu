@@ -5,6 +5,7 @@ import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 import org.pearemu.commons.Constants;
 import org.pearemu.commons.tools.StringTools;
+import org.pearemu.network.Packet;
 
 public class RealmIoHandler extends IoHandlerAdapter{
 

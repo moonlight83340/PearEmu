@@ -4,14 +4,13 @@
  * and open the template in the editor.
  */
 
-package org.pvemu.jelly.database;
+package org.pearemu.commons.database;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.pvemu.jelly.Loggin;
 
 /**
  *
@@ -38,14 +37,15 @@ abstract public class FindableDAO<T extends Model> extends DAO<T> {
                 ResultSet RS = findStatement.executeQuery();
 
                 if (!RS.next()) {
-                    Loggin.debug("Impossible de trouver la pk %d dans la table %s", pk, tableName());
+                    System.out.println("Impossible de trouver la pk " + pk + " dans la table " + tableName());
                     return null;
                 }
 
                 return createByResultSet(RS);
             }
         } catch (SQLException e) {
-            Loggin.error("Chargement impossible !", e);
+            System.out.println("Chargement impossible !");
+            e.printStackTrace();
             return null;
         }
     }
