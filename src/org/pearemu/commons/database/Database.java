@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import jdk.nashorn.tools.Shell;
 import org.pearemu.commons.Config;
 
 public class Database {
