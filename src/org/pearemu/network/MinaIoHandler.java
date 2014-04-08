@@ -17,8 +17,8 @@ import org.apache.mina.core.session.IoSession;
  * @author moonlight83340
  */
 public class MinaIoHandler extends IoHandlerAdapter{
-    final private Map<String, Method> packets = new HashMap<>();
     
+    final private Map<String , Method > packets = new HashMap<>();
     final protected void registerPacketParser(PacketParser parser){
        packets.putAll(parser.getPackets());
     }
@@ -46,7 +46,7 @@ public class MinaIoHandler extends IoHandlerAdapter{
             if(method == null)
                 continue;
             
-            method.invoke(size, args);
+            method.invoke(packets,parser);
             
         }  
     }
