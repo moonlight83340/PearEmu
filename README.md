@@ -1,5 +1,6 @@
 PearEmu
 =======
+Emulateur dofus en Java codé par mmonlight83340 et v4vx.
 
 ## Objetifs
 
